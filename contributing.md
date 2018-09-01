@@ -2,7 +2,7 @@
 Below, you can find all of the information pertaining to the design, continued 
 development and general maintenance of this bot.
 
-# General structure
+## General structure
 KUtils provides some relatively useful things for working on this bot, which 
 will allow you to navigate the project with *some* sense of direction. 
 
@@ -31,7 +31,7 @@ that are described here:
                      in here so it is clearly outlined and findable.
                      
                      
-# Using Maven
+## Using Maven
 Maven is the dependency and build manager for this bot. It has two primary jobs:
  - Create reproducible builds
  - Pull in any dependencies the bot may need
@@ -48,4 +48,18 @@ main uses here. There are a few commands that you will need to know:
                          be a little hover menu, to allow you to open it in your
                          browser of choice automatically. Anytime you re-run 
                          the command, this will update that file.
+
+## Branch scheme
+ - `master` - Only updated alongside release branches 
+ - `develop` - What to make pull requests against
+ - `feature/xyz` - The feature branch for `xyz` feature. 
+
+
+## Making a pull request
+If you want your pull request to go through, all you should:
+ - Have a description of the changes you made
+ - Make changes atomically - Do not contribute big massive features in one
+   single PR - that is not easily digestible for a reviewer. 
+ - Have good formatting
+ - Test thoroughly
 
