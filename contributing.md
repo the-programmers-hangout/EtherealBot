@@ -75,6 +75,11 @@ If you want your pull request to go through, all you should:
  - Test thoroughly
 
 
+## Commits
+Commits should be kept atomic. Try to make single, solid changes and commit
+those. There is typically several atomic changes contained within a 
+feature branch. 
+
 ## Testing
 Testing is done via JUnit5 in the test/ directory. Testing is enforced such
 that the total code coverage must be 50% - this is just to ensure that 
