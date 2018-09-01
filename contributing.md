@@ -62,6 +62,7 @@ main uses here. There are a few commands that you will need to know:
 ## Branch scheme
  - `master` - Only updated alongside release branches 
  - `develop` - What to make pull requests against
+ - `release/version` - The release branch for a particular version
  - `feature/xyz` - The feature branch for `xyz` feature. 
 
 
