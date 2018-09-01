@@ -48,6 +48,16 @@ main uses here. There are a few commands that you will need to know:
                          be a little hover menu, to allow you to open it in your
                          browser of choice automatically. Anytime you re-run 
                          the command, this will update that file.
+3. `mvn jaccoco:check` - This will just check your code coverage metrics,
+                         if you search the target directory you'll find a 
+                         site/ folder that will contain reports pertaining
+                         to this.
+4. `mvn clean verify` -  This will run tests and checks (checks are listed above),
+                         all at once. 
+5. `mvn clean verify package` - Basically grouping 1 and 4, this will be used
+                                as the "production" build command. Runs 
+                                all tests, checks etc - and if they all pass,
+                                it'll make a jar file.
 
 ## Branch scheme
  - `master` - Only updated alongside release branches 
@@ -63,3 +73,9 @@ If you want your pull request to go through, all you should:
  - Have good formatting
  - Test thoroughly
 
+
+## Testing
+Testing is done via JUnit5 in the test/ directory. Testing is enforced such
+that the total code coverage must be 50% - this is just to ensure that 
+*some* testing is done. This may be raised later. Generally speaking,
+testing services and commands is the most important components of testing.

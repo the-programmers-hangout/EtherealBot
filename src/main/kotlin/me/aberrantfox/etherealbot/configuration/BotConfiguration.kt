@@ -16,16 +16,24 @@ data class DatabaseCredentials(val user: String = "insert-user-here",
                                val port: String = "27017",
                                val database: String = "insert-database-here")
 
-private const val path = "config.json"
-private val file = File(path)
+private const val defaultPath = "/"
+private const val defaultName = "config.json"
+
 private val gson = GsonBuilder().setPrettyPrinting().create()
 
-fun loadConfig(): BotConfiguration? =
-        if(file.exists()) {
-            gson.fromJson(file.readText(), BotConfiguration::class.java)
-        } else {
-            file.writeText(gson.toJson(BotConfiguration()))
-            null
-        }
+fun loadConfig(path: String = defaultPath, filename: String = defaultName): BotConfiguration? {
+    val parent = File(path)
+    parent.mkdirs()
 
-fun save(configuration: BotConfiguration) = file.writeText(gson.toJson(configuration))
+    val file = File("$path${File.separator}$filename")
+
+    return if(file.exists()) {
+        gson.fromJson(file.readText(), BotConfiguration::class.java)
+    } else {
+        file.writeText(gson.toJson(BotConfiguration()))
+        null
+    }
+}
+
+fun BotConfiguration.save(path: String = defaultPath, name: String = defaultName) =
+        File("$path${File.separator}$name").writeText(gson.toJson(this))
