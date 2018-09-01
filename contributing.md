@@ -85,3 +85,16 @@ Testing is done via JUnit5 in the test/ directory. Testing is enforced such
 that the total code coverage must be 50% - this is just to ensure that 
 *some* testing is done. This may be raised later. Generally speaking,
 testing services and commands is the most important components of testing.
+
+
+## Versioning
+We use a form of semvar as all maven projects do, such that it looks like the
+following: Major.Minor.Patch
+ - Major - Any major changes, e.g. completely new system added
+ - Minor - Addition of a command or two
+ - Patch - Any bug fixes
+
+Until a 1.0.0 release is made, the major version is 0, hence incrementing 
+the version will increment the minor version as we patch towards a 1.0 - 
+e.g. 0.1.0 -> 0.2.0 -> 0.3.0, etc
+
