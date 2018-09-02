@@ -98,3 +98,19 @@ Until a 1.0.0 release is made, the major version is 0, hence incrementing
 the version will increment the minor version as we patch towards a 1.0 - 
 e.g. 0.1.0 -> 0.2.0 -> 0.3.0, etc
 
+## CI
+Currently, we use gitlab's built in continuous integration system for
+continually running tests and ensuring the build is a-okay. This may
+change in the future depending on the needs of the project. CI is only
+run against the develop branch, since we only have limited CI time (this
+may also change :)) for now, this is part of the reason using feature 
+branches are important.
+
+## Tags
+Anytime a minor version is made, an accompanying tag should be made with it
+to document any changes.
+
+## Docker
+Some docker files for running docker may be added in the very near future,
+it should not be that complicated to do since there is very little required
+to run this.  
