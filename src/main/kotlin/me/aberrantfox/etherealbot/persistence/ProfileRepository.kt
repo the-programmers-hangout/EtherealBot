@@ -21,5 +21,5 @@ class Database (val config: BotConfiguration) {
         collection.insertOne(Profile(_id))
     }
 
-    fun getProfile(_id: String) = collection.find(Profile::_id eq _id, Profile::class.java).first()
+    fun getProfile(_id: String): Profile? = collection.find(Profile::_id eq _id, Profile::class.java).first()
 }
