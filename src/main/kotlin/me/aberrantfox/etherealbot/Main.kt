@@ -2,7 +2,6 @@ package me.aberrantfox.etherealbot
 
 import me.aberrantfox.etherealbot.configuration.BotConfiguration
 import me.aberrantfox.etherealbot.configuration.loadConfig
-import me.aberrantfox.etherealbot.persistence.Database
 import me.aberrantfox.kjdautils.api.startBot
 
 fun main(args: Array<String>) {
@@ -16,9 +15,7 @@ fun main(args: Array<String>) {
 }
 
 fun start(config: BotConfiguration) = startBot(config.token) {
-    println("PROFILE STRING : " + config.dbString())
-    val database = Database(config)
-    registerInjectionObject(config, database)
-    registerCommands("me.aberrantfox.etherealbot", ":{")
+    registerInjectionObject(config)
+    registerCommands("me.aberrantfox.etherealbot", config.prefix)
     registerListenersByPath("me.aberrantfox.listeners")
 }

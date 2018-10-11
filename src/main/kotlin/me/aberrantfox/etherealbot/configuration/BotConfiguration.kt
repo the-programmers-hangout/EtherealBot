@@ -22,10 +22,12 @@ private const val defaultName = "config.json"
 private val gson = GsonBuilder().setPrettyPrinting().create()
 
 fun loadConfig(path: String = defaultPath, filename: String = defaultName): BotConfiguration? {
-    val parent = File(path)
+    val qualifiedPath = if(path.endsWith(File.separatorChar)) path else "path${File.separatorChar}"
+
+    val parent = File(qualifiedPath)
     parent.mkdirs()
 
-    val file = File("$path${File.separator}$filename")
+    val file = File("$qualifiedPath$filename")
 
     return if(file.exists()) {
         gson.fromJson(file.readText(), BotConfiguration::class.java)
