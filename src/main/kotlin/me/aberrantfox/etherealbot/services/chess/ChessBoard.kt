@@ -105,9 +105,9 @@ private fun drawBackground(graphics: Graphics2D, size: Int) {
     (0..7).forEach { y ->
         (0..7).forEach { x ->
             drawTile(graphics, tileDimension * x, tileDimension * y, tileDimension)
-            graphics.color = if (graphics.color == Color.white) Color.black else Color.white
+            graphics.color = if (graphics.color == Color.white) Color.darkGray else Color.white
         }
-        graphics.color = if (graphics.color == Color.white) Color.black else Color.white
+        graphics.color = if (graphics.color == Color.white) Color.darkGray else Color.white
     }
 }
 
