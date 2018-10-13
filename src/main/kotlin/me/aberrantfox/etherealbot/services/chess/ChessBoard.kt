@@ -4,7 +4,6 @@ package me.aberrantfox.etherealbot.services.chess
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
-import me.aberrantfox.etherealbot.services.chess.ChessPiece.*
 import me.aberrantfox.etherealbot.services.chess.TeamColour.*
 import java.io.File
 import javax.imageio.ImageIO
@@ -14,31 +13,51 @@ private const val imagePath = "board.png"
 
 typealias State = ArrayList<ArrayList<ChessPiece>>
 
+data class Point(val x: Int, val y: Int)
+
 data class ChessBoard(val graphics: Graphics2D, val image: BufferedImage, val state: State, val size: Int) {
-    fun getImage(): File {
+    fun getImageFile(): File {
+        this.draw()
         val file = File(imagePath)
         ImageIO.write(image, "png", file)
-
         return file
+    }
+
+    fun performMove(from: Point, to: Point, colour: TeamColour): MoveResult {
+        val fromElement = state[from.y][from.x]
+        val toElement = state[to.y][to.x]
+
+        if(toElement.colour == colour) {
+            return MoveResult.PieceInTheWay
+        }
+
+        val canMove = fromElement.canMove(this, from, to)
+
+        when(canMove) {
+            is MoveResult.Success -> {
+                state[from.y][from.x] = None()
+                state[to.y][to.x] = fromElement
+            }
+            else -> println(canMove.message)
+        }
+
+        return canMove
+    }
+
+    private fun draw() {
+        graphics.clearRect(0, 0, size, size)
+        drawBackground(graphics, size)
+        state.forEachIndexed { y, row ->
+            row.forEachIndexed { x, piece ->
+                drawToCell(graphics, piece, y, x, size)
+            }
+        }
     }
 }
 
 fun createStartingBoard(scale: Double = 1.0): ChessBoard {
     val pair = createEmptyBoard(scale)
-    val state = initialState
-
-    val board = ChessBoard(pair.first, pair.second, state, (800 * scale).toInt())
-    board.draw()
-
-    return board
-}
-
-private fun ChessBoard.draw() {
-    state.forEachIndexed { y, row ->
-        row.forEachIndexed { x, piece ->
-            drawToCell(graphics, piece, y, x, size)
-        }
-    }
+    return ChessBoard(pair.first, pair.second, createInitialState(), (800 * scale).toInt())
 }
 
 private fun drawToCell(graphics: Graphics2D, piece: ChessPiece, y: Int, x: Int, size: Int) {
@@ -49,7 +68,7 @@ private fun drawToCell(graphics: Graphics2D, piece: ChessPiece, y: Int, x: Int, 
     graphics.drawImage(pawn, x * tileSize, y * tileSize, tileSize, tileSize, null)
 }
 
-private val initialState = arrayListOf(
+private fun createInitialState() = arrayListOf(
         arrayListOf(Rook(Black), Knight(Black), Bishop(Black), Queen(Black), King(Black), Bishop(Black), Knight(Black), Rook(Black)),
         createRowOf(Pawn(Black)),
         createRowOf(None(NoColour)),
@@ -73,6 +92,12 @@ private fun createEmptyBoard(scale: Double): Pair<Graphics2D, BufferedImage> {
     val image = BufferedImage(size, size, BufferedImage.TYPE_INT_RGB)
     val graphics = image.createGraphics()
 
+    drawBackground(graphics, size)
+
+    return Pair(graphics, image)
+}
+
+private fun drawBackground(graphics: Graphics2D, size: Int) {
     val tileDimension = size / 8
 
     graphics.color = Color.white
@@ -84,8 +109,6 @@ private fun createEmptyBoard(scale: Double): Pair<Graphics2D, BufferedImage> {
         }
         graphics.color = if (graphics.color == Color.white) Color.black else Color.white
     }
-
-    return Pair(graphics, image)
 }
 
 private fun drawTile(graphics2D: Graphics2D, x: Int, y: Int, size: Int) = graphics2D.apply {
