@@ -1,5 +1,6 @@
 package me.aberrantfox.etherealbot.commands
 
+import me.aberrantfox.etherealbot.arguments.ChessCoordinate
 import me.aberrantfox.etherealbot.services.chess.Point
 import me.aberrantfox.etherealbot.services.chess.TeamColour
 import me.aberrantfox.etherealbot.services.chess.createStartingBoard
@@ -32,14 +33,12 @@ fun chessCommands() = commands {
     }
 
     command("sboard") {
-        expect(IntegerArg, IntegerArg, IntegerArg, IntegerArg)
+        expect(ChessCoordinate, ChessCoordinate)
         execute {
-            val x1 = it.args.component1() as Int
-            val y1 = it.args.component2() as Int
-            val x2 = it.args.component3() as Int
-            val y2 = it.args.component4() as Int
+            val from = it.args.component1() as Point
+            val to = it.args.component2() as Point
 
-            sBoard.performMove(Point(x1,y1), Point(x2, y2), TeamColour.White)
+            sBoard.performMove(from, to, TeamColour.White)
             it.channel.sendFile(sBoard.getImageFile()).queue()
         }
     }

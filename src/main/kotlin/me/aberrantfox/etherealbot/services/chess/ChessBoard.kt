@@ -63,9 +63,10 @@ fun createStartingBoard(scale: Double = 1.0): ChessBoard {
 private fun drawToCell(graphics: Graphics2D, piece: ChessPiece, y: Int, x: Int, size: Int) {
     if(piece is None) return
 
-    val pawn = ImageIO.read(ChessBoard::class.java.getResourceAsStream("/sprites/${piece.colour.name}/${piece.name}.png"))
+    val image = ImageIO.read(ChessBoard::class.java.getResourceAsStream("/sprites/${piece.colour.name}/${piece.name}.png"))
     val tileSize = size / 8
-    graphics.drawImage(pawn, x * tileSize, y * tileSize, tileSize, tileSize, null)
+
+    graphics.drawImage(image, x * tileSize, y * tileSize, tileSize, tileSize, null)
 }
 
 private fun createInitialState() = arrayListOf(
