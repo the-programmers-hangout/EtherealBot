@@ -114,18 +114,19 @@ private fun drawBackground(graphics: Graphics2D, size: Int) {
     }
 
     graphics.font = Font("TimesRoman", Font.PLAIN, 20)
+    graphics.color = Color.black
+
 
     (8 downTo 1).forEach {
         val locationalCoordinate = numberLookup[it]!!
-
-        graphics.color = Color.black
-
         val bound = ((locationalCoordinate + 1) * tileDimension)
         val y = if(bound == 0) 30 else bound - 70
+
         graphics.drawString("$it", 3, y )
+    }
 
-
-        println("$bound :: $it ::$locationalCoordinate :: $y")
+    ('a'..'h').forEachIndexed { i, c ->
+        graphics.drawString("$c", (i * tileDimension) + 2 , size - 3)
     }
 }
 
