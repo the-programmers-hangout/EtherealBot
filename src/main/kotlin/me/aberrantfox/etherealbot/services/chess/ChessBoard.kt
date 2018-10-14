@@ -1,10 +1,12 @@
 package me.aberrantfox.etherealbot.services.chess
 
 
+import me.aberrantfox.etherealbot.arguments.numberLookup
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
 import me.aberrantfox.etherealbot.services.chess.TeamColour.*
+import java.awt.Font
 import java.io.File
 import javax.imageio.ImageIO
 import kotlin.math.roundToInt
@@ -109,6 +111,21 @@ private fun drawBackground(graphics: Graphics2D, size: Int) {
             graphics.color = if (graphics.color == Color.white) Color.darkGray else Color.white
         }
         graphics.color = if (graphics.color == Color.white) Color.darkGray else Color.white
+    }
+
+    graphics.font = Font("TimesRoman", Font.PLAIN, 20)
+
+    (8 downTo 1).forEach {
+        val locationalCoordinate = numberLookup[it]!!
+
+        graphics.color = Color.black
+
+        val bound = ((locationalCoordinate + 1) * tileDimension)
+        val y = if(bound == 0) 30 else bound - 70
+        graphics.drawString("$it", 3, y )
+
+
+        println("$bound :: $it ::$locationalCoordinate :: $y")
     }
 }
 

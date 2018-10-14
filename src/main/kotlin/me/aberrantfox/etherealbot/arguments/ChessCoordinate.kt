@@ -44,7 +44,7 @@ open class ChessCoordinate(override val name: String = "Chess Coordinate") : Arg
 }
 
 
-private val numberLookup = mapOf(
+val numberLookup = mapOf(
         8 to 0,
         7 to 1,
         6 to 2,
@@ -52,10 +52,10 @@ private val numberLookup = mapOf(
         4 to 4,
         3 to 5,
         2 to 6,
-        1 to 8
+        1 to 7
 )
 
-private val charLookup = mapOf(
+val charLookup = mapOf(
         'a' to 0,
         'b' to 1,
         'c' to 2,
@@ -65,4 +65,3 @@ private val charLookup = mapOf(
         'g' to 6,
         'h' to 7
 )
-
