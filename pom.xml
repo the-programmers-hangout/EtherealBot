@@ -11,7 +11,7 @@
     <properties>
         <kutils.version>0.8.8</kutils.version>
         <kmongo.version>3.8.1</kmongo.version>
-        <kotlin.version>1.2.61</kotlin.version>
+        <kotlin.version>1.6.0</kotlin.version>
         <detekt.config>detekt-config.yml</detekt.config>
         <junit.version>5.2.0</junit.version>
     </properties>
